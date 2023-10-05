@@ -7,7 +7,7 @@ import torch.optim as optim
 from torch import nn
 
 import params
-from utils import make_variable
+from utils import make_variable, get_data_loader
 
 
 def train_tgt(src_encoder, tgt_encoder, critic,
@@ -37,6 +37,7 @@ def train_tgt(src_encoder, tgt_encoder, critic,
 
     for epoch in range(params.num_epochs):
         # zip source and target data pair
+        tgt_data_loader = get_data_loader(params.tgt_dataset)
         data_zip = enumerate(zip(src_data_loader, tgt_data_loader))
         for step, ((images_src, _), (images_tgt, _)) in data_zip:
             ###########################
